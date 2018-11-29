@@ -1,4 +1,4 @@
 sceneSetups:
-- path: D:/Casino/card6_frontend-master/Assets/Scenes/PlayRoomScene.unity
+- path: Assets/Scenes/PlayRoomScene.unity
   isLoaded: 1
   isActive: 1
