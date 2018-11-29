@@ -427,7 +427,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: enter your email...
+  m_Text: enter your passwor...
 --- !u!222 &146123089
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1235465192}
         m_MethodName: LoginClick
         m_Mode: 1
         m_Arguments:
@@ -956,7 +956,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: enter your email...
+  m_Text: enter your passwor...
 --- !u!222 &349239846
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1031,7 +1031,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: enter your email...
+  m_Text: enter your name...
 --- !u!222 &405166632
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1072,7 +1072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.31230134, y: 0.128}
   m_AnchorMax: {x: 0.6685667, y: 0.2}
-  m_AnchoredPosition: {x: 0.37600708, y: -1.27}
+  m_AnchoredPosition: {x: 0.37600708, y: -1.269989}
   m_SizeDelta: {x: 2.4, y: -0.27000046}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514457027
@@ -1114,8 +1114,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2060738996}
-        m_MethodName: SingInClick
+      - m_Target: {fileID: 1235465192}
+        m_MethodName: SignupClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1603,8 +1603,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 829220805}
   m_TextComponent: {fileID: 281436485}
   m_Placeholder: {fileID: 146123088}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -2014,7 +2014,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: enter your email...
+  m_Text: enter your name...
 --- !u!222 &1154283893
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2114,6 +2114,50 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1235465190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1235465191}
+  - component: {fileID: 1235465192}
+  m_Layer: 0
+  m_Name: RegisterController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1235465191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1235465190}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.25581926, y: -1.4019037, z: 100.68536}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1235465192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1235465190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2665d6085c30a5a4694b147aacea8eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usernameLoginText: {fileID: 1821855988}
+  passwordLoginText: {fileID: 829220804}
+  usernameSignupText: {fileID: 178798665}
+  passwordSignupText: {fileID: 1555184264}
 --- !u!1 &1242669692
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,8 +2356,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1555184265}
   m_TextComponent: {fileID: 930386648}
   m_Placeholder: {fileID: 349239845}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -2845,7 +2889,6 @@ MonoBehaviour:
   usernameLoginText: {fileID: 1821855988}
   passwordLoginText: {fileID: 0}
   usernameSignupText: {fileID: 0}
-  emailSignupText: {fileID: 0}
   passwordSignupText: {fileID: 0}
 --- !u!1 &2060738992
 GameObject:

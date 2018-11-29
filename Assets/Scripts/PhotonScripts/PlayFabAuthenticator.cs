@@ -12,15 +12,14 @@ public class PlayFabAuthenticator : MonoBehaviour
     public InputField usernameLoginText;
     public InputField passwordLoginText;
     public InputField usernameSignupText;
-    public InputField emailSignupText;
     public InputField passwordSignupText;
+    public string playerName;
 
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else if (Instance != this)
         {
@@ -35,7 +34,8 @@ public class PlayFabAuthenticator : MonoBehaviour
             TitleId = PlayFabSettings.TitleId,
             Username = usernameLoginText.text,
             Password = passwordLoginText.text            
-        }, RequestPhotonToken, OnPlayFabLoginError);        
+        }, RequestPhotonToken, OnPlayFabLoginError);
+        playerName = usernameLoginText.text;
     }
 
     public void SignupClick()
@@ -45,8 +45,9 @@ public class PlayFabAuthenticator : MonoBehaviour
             TitleId = PlayFabSettings.TitleId,
             Username = usernameSignupText.text,
             Password = passwordSignupText.text,
-            Email = emailSignupText.text
-        }, RequestPhotonTokenRegister, OnPlayFabSignupError);       
+            Email = usernameSignupText.text + "@gmail.com"
+        }, RequestPhotonTokenRegister, OnPlayFabSignupError);
+        playerName = usernameSignupText.text;
     }
 
     private void AuthenticateWithPlayFab()

@@ -8,6 +8,7 @@ namespace Assets.Scripts.SceneScripts
 {
     public class PlayRoomScene : MonoBehaviour
     {
+        public static PlayRoomScene Instance;
         public GameObject[] players;
        
         public GameObject menu;
@@ -38,6 +39,65 @@ namespace Assets.Scripts.SceneScripts
         private float currentValue;
         private float speed = 5;
         private Vector3 originPos;
+        public Image[] gamePlayButtons;
+
+        void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        void Start()
+        {
+            float cardWidth = drawCard0.GetComponent<RectTransform>().rect.width;
+            float offset = (cardWidth * 5f + 40) / 2;
+            float newPos = players[10].transform.localPosition.x - offset;
+            originPos = new Vector3(newPos, 0, 0);
+            for (int i = 0; i < 5; i++)
+            {
+                drawCards[i].rectTransform.localPosition = players[5].transform.localPosition + new Vector3(1000, 30, 0);
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                cards[i].rectTransform.localPosition = new Vector2(1000, 1000);
+            }
+            isMenuClick = false;
+            menuPanel.transform.localPosition = new Vector2(1000, 1000);
+            raisePanel.transform.localPosition = new Vector2(1000, 1000);
+            //cards[0].transform.rotation =Quaternion.AngleAxis(-180 ,Vector3.up);
+
+            //cards[1].transform.rotation = Quaternion.AngleAxis(-180, Vector3.up);
+            //string path = @"D:\UnityDevelopment\PokerDevelopment\TexasPoker\Assets\Images\CardImage\club\";
+
+            ////pathPreFix = @"file://";
+
+            //files = System.IO.Directory.GetFiles(path, "*.png");
+
+            ////gameObj = GameObject.FindGameObjectsWithTag("Pics");
+
+
+            width = Screen.width / 7;
+            currentValue = 100;
+
+        }
+
+        void Update()
+        {
+            if (GamePlay.Instance.isStart == true)
+            {
+                CardDistribution();
+                BlindButtonDistribution();
+                LoadingBar.rectTransform.localPosition = players[GamePlay.Instance.blindPlayerIndex[0]].transform.localPosition;
+                MyTurnAnimation();
+            }
+        }
+
         //definition function apply
         public void MenuClick()
         {
@@ -110,62 +170,44 @@ namespace Assets.Scripts.SceneScripts
             raiseText.text = intvalue.ToString();
         }
         //public void Buy
-        // Use this for initialization
-        void Start()
-        {
-            float cardWidth = drawCard0.GetComponent<RectTransform>().rect.width;
-            float offset = (cardWidth * 5f +40)/2;
-            float newPos = players[10].transform.localPosition.x -offset;
-             originPos = new Vector3(newPos, 0, 0);
-            for (int i = 0; i < 5; i++)
-            {
-                drawCards[i].rectTransform.localPosition = players[5].transform.localPosition + new Vector3(0,30,0);
-            }
-            for (int i = 0; i < 20; i++)
-            {
-                cards[i].rectTransform.localPosition = new Vector2(1000, 1000);
-            }
-            isMenuClick = false;
-            menuPanel.transform.localPosition = new Vector2(1000, 1000);
-            raisePanel.transform.localPosition = new Vector2(1000, 1000);
-            //cards[0].transform.rotation =Quaternion.AngleAxis(-180 ,Vector3.up);
+        // Use this for initialization       
 
-            //cards[1].transform.rotation = Quaternion.AngleAxis(-180, Vector3.up);
-            //string path = @"D:\UnityDevelopment\PokerDevelopment\TexasPoker\Assets\Images\CardImage\club\";
+        // Update is called once per frame        
 
-            ////pathPreFix = @"file://";
-
-            //files = System.IO.Directory.GetFiles(path, "*.png");
-
-            ////gameObj = GameObject.FindGameObjectsWithTag("Pics");
-
-           
-            width = Screen.width / 7;
-            currentValue = 100;
-
-        }
-
-        // Update is called once per frame
-        void Update()
+        public void BlindButtonDistribution()
         {
             if (stepCount < 20)
             {
-
-
-                for (int i = 0; i < 20; i++)
+                for(int i = 0; i < 3; i++)
                 {
-                    if (i < 2)
+                    gamePlayButtons[i].rectTransform.localPosition = CardDistributionAnimationPos(players[10].transform.localPosition, players[GamePlay.Instance.blindPlayerIndex[i]].transform.localPosition, i * 2, 20, stepCount);
+                }
+            }
+        }
+
+        public void CardDistribution()
+        {
+            if (stepCount < 20)
+            {
+                foreach (int i in GamePlay.Instance.currentSeatIndex)
+                {
+                    if (i == 0)
                     {
-                        cards[i].rectTransform.localScale = new Vector2(1, 1);
+                        cards[0].rectTransform.localScale = new Vector2(1, 1);
+                        cards[1].rectTransform.localScale = new Vector2(1, 1);                                                
                     }
                     else
-                        cards[i].rectTransform.localScale = new Vector2(0.7f, 0.7f);
-                    cards[i].rectTransform.localPosition = CardDistributionAnimationPos(players[10].transform.localPosition, players[i / 2].transform.localPosition, i, 20, stepCount);
+                    {
+                        cards[i * 2].rectTransform.localScale = new Vector2(0.7f, 0.7f);
+                        cards[i * 2 + 1].rectTransform.localScale = new Vector2(0.7f, 0.7f);
+                    }
 
-                    //cards[1].rectTransform.localPosition = CardDistributionAnimationPos(players[5].GetComponent<Image>().rectTransform.localPosition, players[0].GetComponent<Image>().rectTransform.localPosition, 0, 10, stepCount);
+                    cards[i * 2].rectTransform.localPosition = CardDistributionAnimationPos(players[10].transform.localPosition, players[i].transform.localPosition, i * 2, 20, stepCount);
+                    cards[i * 2 + 1].rectTransform.localPosition = CardDistributionAnimationPos(players[10].transform.localPosition, players[i].transform.localPosition, i * 2 + 1, 20, stepCount);
+
                 }
+              
                 drawCards[0].rectTransform.localPosition = CardDrawAnimationPos(originPos, 40, stepCount);
-
             }
 
             if (stepCount < 30)
@@ -211,11 +253,15 @@ namespace Assets.Scripts.SceneScripts
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    cards[i].sprite = cardSprite[1];
+                    cards[i].sprite = cardSprite[GamePlay.Instance.myHandCardIndex[i]];
+                    //cards[i].sprite = cardSprite[1];
                 }
             }
-            stepCount++;
+            stepCount++;            
+        }
 
+        public void MyTurnAnimation()
+        {
             if (currentValue > 0)
             {
                 currentValue -= speed * Time.deltaTime;
@@ -229,8 +275,8 @@ namespace Assets.Scripts.SceneScripts
             }
 
             LoadingBar.fillAmount = currentValue / 100;
-
         }
+
         private  Vector2 CardDistributionAnimationPos(Vector3 dealerPos, Vector3 playerPos, int playerNum,int stepNum , int stepCount)
         {
             float dealerPosX = dealerPos.x;

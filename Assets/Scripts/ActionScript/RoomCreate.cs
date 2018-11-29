@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Assets.Scripts.SceneScripts;
 public class RoomCreate : MonoBehaviour {
+    public static RoomCreate Instance;
     public GameObject mainCanvas;
     public GameObject createCanvas;
     public GameObject roomListCanvas;
@@ -23,6 +24,19 @@ public class RoomCreate : MonoBehaviour {
     private int roomIntValue;
     private float myheight = 0;
     private int value=0;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void CreateRoomClick()
     {
         Vector2 newPos = new Vector2(1000, 1000);
@@ -35,11 +49,11 @@ public class RoomCreate : MonoBehaviour {
         roomInfo.Add(initialMembers.GetComponent<TextMeshProUGUI>().text);
         roomInfo.Add(startMemebers.GetComponent<TextMeshProUGUI>().text);
 
-        RoomClone(value);
+        ////RoomClone(value);
 
-        value++;
-        Debug.Log(value);
-        SceneManager.SwitchScene("playRoomScene");
+        //value++;
+        //Debug.Log(value);
+        //SceneManager.SwitchScene("playRoomScene");
     }
     public void EntrySalaryValueChanged()
     {
